@@ -221,6 +221,20 @@ function App() {
     };
   }, [particlesOptions, prefersReducedMotion, splashDone]);
 
+  useEffect(() => {
+    if (!splashDone) return undefined;
+
+    const targetId = decodeURIComponent(window.location.hash.slice(1));
+    const target = document.getElementById(targetId);
+    if (!target) return undefined;
+
+    const frame = window.requestAnimationFrame(() => {
+      target.scrollIntoView({ behavior: 'auto', block: 'start' });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [splashDone]);
+
   return (
     <MotionConfig reducedMotion="user">
       <div className="relative min-h-screen w-full bg-transparent">
