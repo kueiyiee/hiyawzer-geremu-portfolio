@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { CSSPlugin } from 'gsap/CSSPlugin';
+import { useReducedMotion } from 'motion/react';
 import SignatureSVG from '../assets/HG.svg?react';
 
 // Register GSAP plugin
@@ -12,8 +13,14 @@ let _animationHasRun = false;
 const SplashLoader = ({ onAnimationComplete }) => {
   const svgRef = useRef(null);
   const containerRef = useRef(null);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      onAnimationComplete?.();
+      return undefined;
+    }
+
     // StrictMode remount guard
     if (_animationHasRun) {
       onAnimationComplete?.();
@@ -114,7 +121,7 @@ const SplashLoader = ({ onAnimationComplete }) => {
 
       tl.kill();
     };
-  }, []);
+  }, [onAnimationComplete, prefersReducedMotion]);
 
   return (
     <div

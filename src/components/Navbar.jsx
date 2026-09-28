@@ -1,37 +1,45 @@
 import { motion, AnimatePresence } from 'motion/react';
 import { ThemeContext } from './../App';
-import { useContext, useState, useEffect } from 'react';
+import { useContext, useState, useEffect, useRef } from 'react';
 import { Menu, X, Moon, Sun } from 'lucide-react';
 
 function Navbar() {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const scrollFrame = useRef(null);
+  const previousScrolled = useRef(false);
 
   const navItems = ['Home', 'Experience','Projects', 'About', 'Skills', 'Contact'];
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
+      if (scrollFrame.current !== null) return;
+
+      scrollFrame.current = window.requestAnimationFrame(() => {
+        scrollFrame.current = null;
+        const nextScrolled = window.scrollY > 20;
+
+        if (nextScrolled !== previousScrolled.current) {
+          previousScrolled.current = nextScrolled;
+          setScrolled(nextScrolled);
+        }
+      });
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (scrollFrame.current !== null) {
+        window.cancelAnimationFrame(scrollFrame.current);
+      }
+    };
   }, []);
 
-  const handleNavClick = (e, item) => {
-    e.preventDefault();
-    const sectionId = item.toLowerCase();
-    const section = document.getElementById(sectionId);
-    if (section) {
-      if (isMobileMenuOpen) {
-        setIsMobileMenuOpen(false);
-        setTimeout(() => {
-          section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 300);
-      } else {
-        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
+  const handleNavClick = () => {
+    if (isMobileMenuOpen) setIsMobileMenuOpen(false);
   };
 
   return (
@@ -39,11 +47,11 @@ function Navbar() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5, type: "spring", stiffness: 100 }}
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 w-full z-50 transition-colors duration-200 ${
         scrolled 
           ? theme === 'dark' 
-            ? 'bg-[#1c1c1c]/95 backdrop-blur-xl shadow-lg shadow-[#b8f2e6]/5' 
-            : 'bg-white/95 backdrop-blur-xl shadow-lg shadow-[#aed9e0]/10'
+            ? 'bg-[#1c1c1c]/95 backdrop-blur-md shadow-lg shadow-[#b8f2e6]/5'
+            : 'bg-white/95 backdrop-blur-md shadow-lg shadow-[#aed9e0]/10'
           : theme === 'dark'
             ? 'bg-[#1c1c1c]/80 backdrop-blur-md'
             : 'bg-white/80 backdrop-blur-md'
@@ -84,7 +92,7 @@ function Navbar() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: idx * 0.1 }}
                 whileHover={{ y: -2 }}
-                onClick={(e) => handleNavClick(e, item)}
+                onClick={handleNavClick}
                 className="relative group"
               >
                 <span className={`text-base font-medium transition-colors duration-200 ${
@@ -237,7 +245,7 @@ function Navbar() {
                     transition={{ delay: idx * 0.05 }}
                     whileHover={{ x: 8 }}
                     whileTap={{ scale: 0.95 }}
-                    onClick={(e) => handleNavClick(e, item)}
+                    onClick={handleNavClick}
                     className={`text-base font-medium px-4 py-3 rounded-xl transition-all duration-200 ${
                       theme === 'dark'
                         ? 'text-[#b8f2e6] hover:bg-[#b8f2e6]/10'

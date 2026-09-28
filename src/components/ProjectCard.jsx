@@ -55,19 +55,10 @@ function ProjectCard({ project, onClick, isCompact = false, showGithub = true })
 
                 {/* Decorative corner accent - Only for featured */}
                 {!isCompact && (
-                    <motion.div
+                    <div
                         className={`absolute top-0 right-0 w-32 h-32 rounded-bl-full opacity-20 ${
                             theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
                         }`}
-                        animate={{
-                            scale: [1, 1.2, 1],
-                            rotate: [0, 90, 0],
-                        }}
-                        transition={{
-                            duration: 10,
-                            repeat: Infinity,
-                            ease: "easeInOut"
-                        }}
                     />
                 )}
 
@@ -178,21 +169,12 @@ function ProjectCard({ project, onClick, isCompact = false, showGithub = true })
                 </div>
 
                 {/* Hover shine effect - Slightly toned down for compact */}
-                <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none"
+                <div
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-300"
                     style={{
                         background: theme === "dark"
                             ? `linear-gradient(135deg, transparent 0%, rgba(184, 242, 230, ${isCompact ? '0.05' : '0.1'}) 50%, transparent 100%)`
                             : `linear-gradient(135deg, transparent 0%, rgba(174, 217, 224, ${isCompact ? '0.08' : '0.15'}) 50%, transparent 100%)`
-                    }}
-                    animate={{
-                        x: ['-100%', '100%'],
-                    }}
-                    transition={{
-                        duration: isCompact ? 2.5 : 2,
-                        repeat: Infinity,
-                        repeatDelay: isCompact ? 1.5 : 1,
-                        ease: "easeInOut"
                     }}
                 />
             </div>

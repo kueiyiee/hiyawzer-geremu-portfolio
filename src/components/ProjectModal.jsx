@@ -289,7 +289,7 @@ function ProjectModal({ project, isOpen, onClose }) {
                     </div>
 
                     {/* Custom Scrollbar Styles */}
-                    <style jsx>{`
+                    <style>{`
                         .custom-scrollbar::-webkit-scrollbar {
                             width: 8px;
                         }

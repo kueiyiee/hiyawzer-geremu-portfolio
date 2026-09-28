@@ -18,14 +18,32 @@ html.dark {
    particles canvas layering beneath the content tree.                   */
 html {
   background-color: var(--surface-bg);
-  overscroll-behavior: none;
+  scroll-behavior: smooth;
   min-height: 100%;
 }
 
 body {
   background-color: transparent;
-  overscroll-behavior: none;
   min-height: 100%;
+}
+
+section[id] {
+  scroll-margin-top: 4.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* ─── App shell ────────────────────────────────────────────────────────────
@@ -48,6 +66,7 @@ body {
   height: 100% !important;
   z-index: -1 !important;
   pointer-events: auto !important;
+  touch-action: pan-y;
 }
 
 /* ─── Content sections ─────────────────────────────────────────────────────

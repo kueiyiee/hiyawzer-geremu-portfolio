@@ -27,17 +27,8 @@ function Experience() {
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 50, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className={`absolute top-20 right-20 w-96 h-96 rounded-full blur-3xl opacity-10 ${
+        <div
+          className={`absolute top-20 right-20 w-96 h-96 rounded-full blur-xl md:blur-3xl opacity-10 ${
             theme === 'dark' ? 'bg-[#b8f2e6]' : 'bg-[#aed9e0]'
           }`}
         />
@@ -60,11 +51,11 @@ function Experience() {
             Experience
           </motion.h2>
           <motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "6rem" }}
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className={`h-1 mx-auto rounded-full ${
+            transition={{ duration: 0.35, delay: 0.1 }}
+            className={`w-24 h-1 mx-auto rounded-full origin-center ${
               theme === 'dark' ? 'bg-[#b8f2e6]' : 'bg-[#aed9e0]'
             }`}
           />
@@ -74,11 +65,11 @@ function Experience() {
         <div className="relative">
           {/* Vertical Timeline Line */}
           <motion.div
-            initial={{ height: 0 }}
-            whileInView={{ height: "100%" }}
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className={`absolute left-0 md:left-12 top-0 w-0.5 ${
+            transition={{ duration: 0.45, delay: 0.1 }}
+            className={`absolute left-0 md:left-12 top-0 h-full w-0.5 origin-top ${
               theme === 'dark' ? 'bg-[#b8f2e6]/30' : 'bg-[#aed9e0]/40'
             }`}
           />
@@ -88,7 +79,7 @@ function Experience() {
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.5 }}
+            transition={{ duration: 0.35, delay: 0.05 }}
             className="relative pl-12 md:pl-32 pb-12"
           >
             {/* Timeline Dot */}
@@ -96,16 +87,14 @@ function Experience() {
               initial={{ scale: 0 }}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
-              transition={{ type: "spring", stiffness: 200, delay: 0.6 }}
+              transition={{ type: "spring", stiffness: 200, damping: 20, delay: 0.1 }}
               className={`absolute left-0 md:left-12 top-2 -translate-x-1/2 w-5 h-5 rounded-full border-4 ${
                 theme === 'dark'
                   ? 'bg-[#b8f2e6] border-[#1c1c1c]'
                   : 'bg-[#aed9e0] border-[#fafafa]'
               }`}
             >
-              <motion.div
-                animate={{ scale: [1, 2, 1], opacity: [0.5, 0, 0.5] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+              <div
                 className={`absolute inset-0 rounded-full ${
                   theme === 'dark' ? 'bg-[#b8f2e6]' : 'bg-[#aed9e0]'
                 }`}
@@ -120,7 +109,7 @@ function Experience() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.7 }}
+                  transition={{ duration: 0.3, delay: 0.1 }}
                   className={`text-3xl md:text-4xl font-bold mb-2 ${
                     theme === 'dark' ? 'text-[#b8f2e6]' : 'text-[#5e6472]'
                   }`}
@@ -131,7 +120,7 @@ function Experience() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.8 }}
+                  transition={{ duration: 0.3, delay: 0.15 }}
                   className={`text-xl md:text-2xl font-semibold mb-4 ${
                     theme === 'dark' ? 'text-[#aed9e0]' : 'text-[#5e6472]'
                   }`}
@@ -144,7 +133,7 @@ function Experience() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: 0.9 }}
+                  transition={{ duration: 0.3, delay: 0.2 }}
                   className="flex flex-wrap gap-4"
                 >
                   <div className={`flex items-center gap-2 text-sm md:text-base ${
@@ -176,7 +165,7 @@ function Experience() {
                     initial={{ opacity: 0, x: -30 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
-                    transition={{ duration: 0.5, delay: 1 + idx * 0.1 }}
+                    transition={{ duration: 0.3, delay: 0.1 + idx * 0.04 }}
                     className="group/item"
                   >
                     <motion.div

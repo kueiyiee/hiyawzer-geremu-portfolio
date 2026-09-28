@@ -25,33 +25,13 @@ function Contact() {
     >
       {/* Animated background elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <Motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, 50, 0],
-            y: [0, 30, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className={`absolute top-20 left-10 w-96 h-96 rounded-full blur-3xl opacity-10 ${
+        <div
+          className={`absolute top-20 left-10 w-96 h-96 rounded-full blur-xl md:blur-3xl opacity-10 ${
             theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
           }`}
         />
-        <Motion.div
-          animate={{
-            scale: [1, 1.3, 1],
-            x: [0, -30, 0],
-            y: [0, 50, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className={`absolute bottom-20 right-10 w-96 h-96 rounded-full blur-3xl opacity-10 ${
+        <div
+          className={`absolute bottom-20 right-10 w-96 h-96 rounded-full blur-xl md:blur-3xl opacity-10 ${
             theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
           }`}
         />
@@ -74,11 +54,11 @@ function Contact() {
             Get In Touch
           </Motion.h2>
           <Motion.div
-            initial={{ width: 0 }}
-            whileInView={{ width: "6rem" }}
+            initial={{ scaleX: 0 }}
+            whileInView={{ scaleX: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.8, delay: 0.3 }}
-            className={`h-1 mx-auto rounded-full ${
+            transition={{ duration: 0.35, delay: 0.1 }}
+            className={`w-24 h-1 mx-auto rounded-full origin-center ${
               theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
             }`}
           />

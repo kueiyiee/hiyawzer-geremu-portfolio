@@ -14,31 +14,13 @@ function AboutMe() {
         >
             {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        rotate: [0, 90, 0],
-                    }}
-                    transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                    className={`absolute top-20 right-10 w-72 h-72 rounded-full blur-3xl opacity-10 ${
+                <div
+                    className={`absolute top-20 right-10 w-72 h-72 rounded-full blur-xl md:blur-3xl opacity-10 ${
                         theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
                     }`}
                 />
-                <motion.div
-                    animate={{
-                        scale: [1, 1.3, 1],
-                        rotate: [0, -90, 0],
-                    }}
-                    transition={{
-                        duration: 30,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                    className={`absolute bottom-20 left-10 w-96 h-96 rounded-full blur-3xl opacity-10 ${
+                <div
+                    className={`absolute bottom-20 left-10 w-96 h-96 rounded-full blur-xl md:blur-3xl opacity-10 ${
                         theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
                     }`}
                 />
@@ -60,18 +42,10 @@ function AboutMe() {
                             className="relative group"
                         >
                             {/* Decorative border effect */}
-                            <motion.div
+                            <div
                                 className={`absolute -inset-4 rounded-3xl opacity-50 blur-xl ${
                                     theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
                                 }`}
-                                animate={{
-                                    opacity: [0.3, 0.6, 0.3],
-                                }}
-                                transition={{
-                                    duration: 3,
-                                    repeat: Infinity,
-                                    ease: "easeInOut"
-                                }}
                             />
                             
                             {/* Image container */}
@@ -108,29 +82,12 @@ function AboutMe() {
                             </div>
 
                             {/* Floating decorative elements */}
-                            <motion.div
-                                animate={{
-                                    y: [0, -10, 0],
-                                }}
-                                transition={{
-                                    duration: 3,
-                                    repeat: Infinity,
-                                    ease: "easeInOut"
-                                }}
+                            <div
                                 className={`absolute -top-4 -right-4 w-24 h-24 rounded-full border-4 opacity-40 ${
                                     theme === "dark" ? "border-[#b8f2e6]" : "border-[#aed9e0]"
                                 }`}
                             />
-                            <motion.div
-                                animate={{
-                                    y: [0, 10, 0],
-                                }}
-                                transition={{
-                                    duration: 4,
-                                    repeat: Infinity,
-                                    ease: "easeInOut",
-                                    delay: 0.5
-                                }}
+                            <div
                                 className={`absolute -bottom-6 -left-6 w-32 h-32 rounded-full border-4 opacity-30 ${
                                     theme === "dark" ? "border-[#b8f2e6]" : "border-[#aed9e0]"
                                 }`}
@@ -162,11 +119,11 @@ function AboutMe() {
                             </motion.h2>
                             
                             <motion.div
-                                initial={{ width: 0 }}
-                                whileInView={{ width: "6rem" }}
+                                initial={{ scaleX: 0 }}
+                                whileInView={{ scaleX: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.8, delay: 0.5 }}
-                                className={`h-1.5 rounded-full mx-auto mb-8 ${
+                                transition={{ duration: 0.35, delay: 0.1 }}
+                                className={`w-24 h-1.5 rounded-full origin-center mx-auto mb-8 ${
                                     theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
                                 }`}
                             />

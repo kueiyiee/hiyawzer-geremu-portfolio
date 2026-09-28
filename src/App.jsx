@@ -6,6 +6,7 @@ import React, {
   useMemo,
   useCallback,
 } from 'react';
+import { MotionConfig, useReducedMotion } from 'motion/react';
 
 import { tsParticles } from '@tsparticles/engine';
 import { loadSlim } from '@tsparticles/slim';
@@ -27,6 +28,7 @@ export const ThemeContext = createContext();
 function App() {
   const [splashDone, setSplashDone] = useState(false);
   const currentYear = new Date().getFullYear();
+  const prefersReducedMotion = useReducedMotion();
 
   const particlesContainerRef = useRef(null);
 
@@ -59,6 +61,34 @@ function App() {
       },
 
       fpsLimit: 60,
+      pauseOnBlur: true,
+      pauseOnOutsideViewport: true,
+      responsive: [
+        {
+          maxWidth: 480,
+          mode: 'screen',
+          options: {
+            fpsLimit: 30,
+            particles: { number: { value: 30 } },
+          },
+        },
+        {
+          maxWidth: 768,
+          mode: 'screen',
+          options: {
+            fpsLimit: 40,
+            particles: { number: { value: 50 } },
+          },
+        },
+        {
+          maxWidth: 1024,
+          mode: 'screen',
+          options: {
+            fpsLimit: 50,
+            particles: { number: { value: 70 } },
+          },
+        },
+      ],
 
       particles: {
         number: {
@@ -162,7 +192,7 @@ function App() {
 
   useEffect(() => {
     // Gate particles until splash completes
-    if (!splashDone) return;
+    if (!splashDone || prefersReducedMotion) return;
 
     const initParticles = async () => {
       if (!particlesContainerRef.current) return;
@@ -189,10 +219,11 @@ function App() {
 
       container?.destroy();
     };
-  }, [particlesOptions, splashDone]);
+  }, [particlesOptions, prefersReducedMotion, splashDone]);
 
   return (
-    <div className="relative min-h-screen w-full bg-transparent">
+    <MotionConfig reducedMotion="user">
+      <div className="relative min-h-screen w-full bg-transparent">
       {/* Splash mounts FIRST and gates everything */}
       {!splashDone && (
         <SplashLoader
@@ -206,7 +237,7 @@ function App() {
           <div
             id="tsparticles"
             ref={particlesContainerRef}
-            className="absolute inset-0 w-full h-full particles-canvas"
+            className="fixed inset-0 w-full particles-canvas"
             style={{
               minHeight: '100vh',
               zIndex: -10,
@@ -236,7 +267,8 @@ function App() {
           </footer>
         </>
       )}
-    </div>
+      </div>
+    </MotionConfig>
   );
 }
 

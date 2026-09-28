@@ -143,10 +143,10 @@ const containerVariants = {
                         Skills
                     </motion.h2>
                     <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: "6rem" }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        className={`h-1 mx-auto rounded-full ${
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.35, delay: 0.1 }}
+                        className={`w-24 h-1 mx-auto rounded-full origin-center ${
                             theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
                         }`}
                     />
@@ -323,20 +323,12 @@ const containerVariants = {
                                                     </span>
 
                                                     {/* Floating dot */}
-                                                    <motion.div
+                                                    <div
                                                         className={`
                                                             absolute -top-0.5 -right-0.5 w-1.5 h-1.5 rounded-full 
                                                             opacity-0 group-hover/skill:opacity-100
                                                             ${theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#5e6472]"}
                                                         `}
-                                                        animate={{
-                                                            scale: [1, 1.5, 1],
-                                                        }}
-                                                        transition={{
-                                                            duration: 2,
-                                                            repeat: Infinity,
-                                                            ease: "easeInOut"
-                                                        }}
                                                     />
                                                 </div>
                                             </motion.div>
@@ -345,21 +337,12 @@ const containerVariants = {
                                 </div>
 
                                 {/* Shine sweep */}
-                                <motion.div
-                                    className="absolute inset-0 opacity-0 group-hover/category:opacity-100 pointer-events-none rounded-2xl"
+                                <div
+                                    className="absolute inset-0 opacity-0 group-hover/category:opacity-100 pointer-events-none rounded-2xl transition-opacity duration-300"
                                     style={{
                                         background: theme === "dark"
                                             ? "linear-gradient(135deg, transparent 0%, rgba(184, 242, 230, 0.08) 50%, transparent 100%)"
                                             : "linear-gradient(135deg, transparent 0%, rgba(174, 217, 224, 0.12) 50%, transparent 100%)"
-                                    }}
-                                    animate={{
-                                        x: ['-100%', '100%'],
-                                    }}
-                                    transition={{
-                                        duration: 2.5,
-                                        repeat: Infinity,
-                                        repeatDelay: 1.5,
-                                        ease: "easeInOut"
                                     }}
                                 />
                             </div>

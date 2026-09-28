@@ -1,5 +1,6 @@
 import { StrictMode, useState, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
+import { useReducedMotion } from 'motion/react'
 import ReactGA from 'react-ga4'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
@@ -16,14 +17,20 @@ if (GA_MEASUREMENT_ID) {
 
 function Root() {
   const [isLoading, setIsLoading] = useState(true);
+  const prefersReducedMotion = useReducedMotion();
 
   useEffect(() => {
+    if (prefersReducedMotion) {
+      setIsLoading(false);
+      return undefined;
+    }
+
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 2500); // 2.5-second delay for the loader
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [prefersReducedMotion]);
 
   return (
     // <StrictMode>

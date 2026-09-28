@@ -6,14 +6,6 @@ import { Mail } from 'lucide-react';
 function Hero() {
   const { theme } = useContext(ThemeContext);
 
-  const handleContactScroll = (e) => {
-    e.preventDefault();
-    document.getElementById('contact')?.scrollIntoView({ 
-      behavior: 'smooth',
-      block: 'start'
-    });
-  };
-
   // Memoize name letters to prevent re-computation
   const nameLetters = useMemo(() => "Hiyawzer Geremu".split(""), []);
 
@@ -24,33 +16,13 @@ function Hero() {
     >
       {/* Optimized background blobs - reduced opacity for performance */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          animate={{
-            scale: [1, 1.15, 1],
-            x: [0, 80, 0],
-            y: [0, 40, 0],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-3xl opacity-[0.15] ${
+        <div
+          className={`absolute top-1/4 left-1/4 w-96 h-96 rounded-full blur-xl md:blur-3xl opacity-[0.15] ${
             theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
           }`}
         />
-        <motion.div
-          animate={{
-            scale: [1, 1.2, 1],
-            x: [0, -60, 0],
-            y: [0, 60, 0],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut"
-          }}
-          className={`absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-3xl opacity-[0.15] ${
+        <div
+          className={`absolute bottom-1/4 right-1/4 w-80 h-80 rounded-full blur-xl md:blur-3xl opacity-[0.15] ${
             theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
           }`}
         />
@@ -148,7 +120,6 @@ function Hero() {
           {/* Secondary CTA */}
           <motion.a
             href="#contact"
-            onClick={handleContactScroll}
             whileHover={{ y: -4 }}
             whileTap={{ scale: 0.98 }}
             transition={{ duration: 0.2 }}

@@ -29,8 +29,8 @@ function Projects() {
         visible: {
             opacity: 1,
             transition: {
-                staggerChildren: 0.15,
-                delayChildren: 0.2
+                staggerChildren: 0.06,
+                delayChildren: 0.05
             }
         }
     };
@@ -42,33 +42,13 @@ function Projects() {
         >
             {/* Animated background elements */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                    animate={{
-                        scale: [1, 1.2, 1],
-                        x: [0, 30, 0],
-                        y: [0, 50, 0],
-                    }}
-                    transition={{
-                        duration: 20,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                    className={`absolute top-40 right-20 w-96 h-96 rounded-full blur-3xl opacity-10 ${
+                <div
+                    className={`absolute top-40 right-20 w-96 h-96 rounded-full blur-xl md:blur-3xl opacity-10 ${
                         theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
                     }`}
                 />
-                <motion.div
-                    animate={{
-                        scale: [1, 1.3, 1],
-                        x: [0, -40, 0],
-                        y: [0, 30, 0],
-                    }}
-                    transition={{
-                        duration: 25,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                    className={`absolute bottom-40 left-20 w-80 h-80 rounded-full blur-3xl opacity-10 ${
+                <div
+                    className={`absolute bottom-40 left-20 w-80 h-80 rounded-full blur-xl md:blur-3xl opacity-10 ${
                         theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
                     }`}
                 />
@@ -91,11 +71,11 @@ function Projects() {
                         Selected Systems
                     </motion.h2>
                     <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: "6rem" }}
+                        initial={{ scaleX: 0 }}
+                        whileInView={{ scaleX: 1 }}
                         viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        className={`h-1 mx-auto rounded-full mb-6 ${
+                        transition={{ duration: 0.35, delay: 0.1 }}
+                        className={`w-24 h-1 mx-auto rounded-full mb-6 origin-center ${
                             theme === "dark" ? "bg-[#b8f2e6]" : "bg-[#aed9e0]"
                         }`}
                     />
