@@ -323,15 +323,19 @@ function Navbar() {
           id="mobile-navigation"
           initial={false}
           animate={{
-            height: isMobileMenuOpen ? 'auto' : 0,
             opacity: isMobileMenuOpen ? 1 : 0,
+            y: isMobileMenuOpen ? 0 : -8,
           }}
-          transition={{ duration: 0.2, ease: 'easeInOut' }}
+          transition={{ duration: 0.18, ease: 'easeOut' }}
           aria-hidden={!isMobileMenuOpen}
           inert={!isMobileMenuOpen}
-          className="md:hidden overflow-hidden"
+          className={`absolute top-full left-0 right-0 md:hidden border-t backdrop-blur-xl shadow-lg ${
+            theme === 'dark'
+              ? 'bg-[#1c1c1c]/95 border-[#b8f2e6]/15'
+              : 'bg-white/95 border-[#aed9e0]/30'
+          } ${isMobileMenuOpen ? '' : 'pointer-events-none'}`}
         >
-              <div className="flex flex-col space-y-2 py-4">
+              <div className="max-w-7xl mx-auto flex flex-col space-y-2 px-4 py-4 sm:px-6 lg:px-8">
                 {navigationItems.map((item, idx) => {
                   const isActive = activeSection === item.target;
 
