@@ -24,6 +24,7 @@ function Navbar() {
   });
   const prefersReducedMotion = useReducedMotion();
   const mobileMenuButtonRef = useRef(null);
+  const navbarBarRef = useRef(null);
   const scrollFrame = useRef(null);
   const previousScrolled = useRef(false);
 
@@ -103,15 +104,22 @@ function Navbar() {
       return;
     }
 
+    event.preventDefault();
+    window.history.pushState(null, '', `#${target}`);
     setActiveSection(target);
 
+    const navbarHeight = navbarBarRef.current?.getBoundingClientRect().height ?? 64;
+    const targetTop = Math.max(
+      0,
+      window.scrollY + section.getBoundingClientRect().top - navbarHeight - 8
+    );
+
+    window.scrollTo({
+      top: targetTop,
+      behavior: prefersReducedMotion ? 'auto' : 'smooth',
+    });
+
     if (isMobileMenuOpen) {
-      event.preventDefault();
-      window.history.pushState(null, '', `#${target}`);
-      section.scrollIntoView({
-        behavior: prefersReducedMotion ? 'auto' : 'smooth',
-        block: 'start',
-      });
       mobileMenuButtonRef.current?.focus({ preventScroll: true });
       setIsMobileMenuOpen(false);
     }
@@ -133,7 +141,10 @@ function Navbar() {
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex min-w-0 items-center justify-between h-16">
+        <div
+          ref={navbarBarRef}
+          className="flex min-w-0 items-center justify-between h-16"
+        >
           {/* Logo */}
           <motion.div
             whileHover={{ scale: 1.05 }}
